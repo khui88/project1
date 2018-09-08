@@ -1,7 +1,5 @@
 package com.revature.util;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,29 +23,20 @@ public class ConnectionFactory {
 	
 	public Connection getConnection() {
 		Connection conn = null;
-		
-		Properties prop = new Properties();
-		
-		String path = "C:/Users/imjus/Documents/my_git_repos/1807Jul30Java/Kevin_Hui_Code/Week4/ers/src/main/resources/application.properties";
-
 		try {
-			prop.load(new FileReader(path));
-			Class.forName(prop.getProperty("driver"));
-			conn = DriverManager.getConnection(
-					prop.getProperty("url"),
-					prop.getProperty("usr"),
-					prop.getProperty("pwd"));
-		
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			Properties props = new Properties();
+			props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("application.properties"));
+			Class.forName(props.getProperty("driver"));
+			conn = DriverManager.getConnection(props.getProperty("url"), props.getProperty("usr"), props.getProperty("pwd"));
+			return conn;
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+			//System.out.println("SQL Error " + sql.getErrorCode() + ": " + sql.getSQLState());
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
-		
-		return conn;
+		return null;
 	}
 }
