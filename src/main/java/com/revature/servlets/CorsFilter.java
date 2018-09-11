@@ -20,7 +20,7 @@ public class CorsFilter implements Filter {
 		
 		System.out.println("Incoming " + httpRequest.getMethod() + " request at " + httpRequest.getRequestURI());
 		
-		httpResponse.addHeader("Access-Control-Allow-Origin", "https://khui88.github.io");
+		httpResponse.addHeader("Access-Control-Allow-Origin", "http://kevinhui.s3-website-us-east-1.amazonaws.com");
 		httpResponse.addHeader("Access-Control-Allow-Methods", "GET, POST, HEAD, OPTIONS");
 		httpResponse.addHeader("Access-Control-Allow-Headers", "Content-Type");
 		
